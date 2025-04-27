@@ -1,0 +1,78 @@
+Access S3 Bucket:
+
+You can now use the aws s3 CLI commands to interact with the S3 bucket.
+
+List Buckets:
+
+aws s3 ls
+
+======================
+
+List Objects in a Bucket:
+
+aws s3 ls s3://<bucket-name>/
+
+=============================
+
+Copy Data from S3 to EC2:
+
+aws s3 cp s3://<bucket-name>/<object-key> /local/path
+
+
+aws s3 cp s3://shashitestbucket0406/Day\ 1.pdf ~/Day1.pdf
+
+======================================================
+
+Copy All Data from a Bucket to EC2:
+
+aws s3 cp s3://<bucket-name>/ /local/path --recursive
+
+======================================================
+
+
+Upload the File
+Use the aws s3 cp command to upload a file to an S3 bucket.
+
+Syntax:
+
+aws s3 cp /local/file/path s3://<bucket-name>/
+
+
+Example: To upload a file named example.txt to the bucket mybucket:
+
+aws s3 cp ~/example.txt s3://mybucket/
+
+
+Output: On success, you’ll see:
+
+upload: ./example.txt to s3://mybucket/example.txt
+
+========================================================================
+
+Specify a Custom Key (Optional)
+
+You can upload the file with a custom name or path in the bucket:
+
+aws s3 cp ~/example.txt s3://mybucket/folder1/custom_name.txt
+
+
+=======================================================================
+
+To upload an entire folder to an S3 bucket using the AWS CLI, you can use the --recursive option. Here's how:
+
+Command to Upload a Folder
+Syntax:
+
+aws s3 cp /local/folder/path s3://<bucket-name>/ --recursive
+
+
+Example: To upload a folder named myfolder to the bucket mybucket:
+
+aws s3 cp ~/myfolder s3://mybucket/ --recursive
+
+========================================================================
+
+How It Works
+
+The --recursive option ensures that all files and subdirectories inside the specified folder are uploaded to the S3 bucket.
+The folder structure is preserved in the bucket.

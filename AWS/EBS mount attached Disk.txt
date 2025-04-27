@@ -1,0 +1,71 @@
+1. Created a new EBS Volume 
+
+2. Attached it to a EC2
+
+3. lsblk - To view the disk block
+
+4. Created partition by using fdsik.
+
+sudo fdisk /dev/xvdb (Replace /dev/xvdb with the actual device name of the expanded disk if different.)
+
+View the existing partitions: In the fdisk prompt, type:
+
+p
+
+This shows the existing partitions on the disk.
+
+Create a New Partition:
+
+> Type n to create a new partition.
+> Select the partition type:
+> Type p for a primary partition.
+> Specify the partition number (e.g., 3, if you want to create the third partition).
+> Accept the default values for the first and last sectors to use all available space, or specify a size if you want to create a smaller partition.
+
+Write the Changes: After the new partition is created, type:
+
+w
+
+This writes the changes to the disk and exits fdisk.
+
+
+
+5. Updated the File System (EXT4)
+
+sudo mkfs -t ext4 /dev/xvdb3
+
+
+6. Created a Mount Point (/mnt/data)
+
+
+create a directory where the new partition will be mounted:
+
+sudo mkdir /mnt/data
+
+
+6. Mount the New Partition
+
+Mount the newly formatted partition to the created directory:
+
+sudo mount /dev/xvdb3 /mnt/data
+
+7. Add the New Partition to /etc/fstab
+
+Open the fstab file for editing:
+
+sudo nano /etc/fstab
+
+
+Add the following line for your new partition (replace /dev/xvdb3 and /mnt/data with the correct values):
+
+/dev/xvdb3    /mnt/data    ext4    defaults,nofail    0    2
+
+
+Save and close the file.
+
+8. Verify the Partition
+
+Finally, verify that the partition is mounted and the new space is available:
+
+df -h
+

@@ -1,0 +1,32 @@
+Update the Bucket Policy
+You can add a bucket policy to allow public read access to all objects in the bucket. Here’s an example policy:
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::<bucket-name>/*"
+    }
+  ]
+}
+
+
+
+To apply this policy:
+
+Go to the S3 Management Console.
+Navigate to your bucket.
+Click Permissions > Bucket Policy.
+Paste the policy and save.
+Replace <bucket-name> with the name of your bucket.
+
+
+Disable "Block Public Access"
+Go to the S3 Management Console.
+Navigate to your bucket.
+Click Permissions > Block Public Access settings.
+Disable "Block all public access" and save.
+Be cautious! Disabling this setting makes objects publicly accessible.

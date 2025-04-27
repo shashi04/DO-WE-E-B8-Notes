@@ -1,0 +1,63 @@
+Step 1: Create a directory in /var/www
+
+mkdir filename
+
+
+Step 2: Create a index.html file in the new directory
+
+Use nano or vim
+
+Step 3: Goto /etc/apache2/sites-available
+
+Create a file appname.conf and update it with the below code
+
+Note: Change the appname accordingly
+
+<VirtualHost *:80>
+    # Primary domain
+    ServerName test-alb-1029540300.ap-south-1.elb.amazonaws.com
+
+    # Additional domain names or subdomains
+    ServerAlias www.test-alb-1029540300.ap-south-1.elb.amazonaws.com myapp.test.com app.test.com
+
+    DocumentRoot /var/www/html
+
+    Alias /myapp /var/www/myapp
+    <Directory /var/www/myapp>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    
+</VirtualHost>
+
+
+
+Using Multiple ServerName or ServerAlias
+1.ServerName is the primary domain name.
+2.ServerAlias allows you to specify additional names or subdomains that the server should respond to.
+
+
+Step 4: Check the apache 2 configuration
+
+sudo apache2ctl configtest
+
+
+
+Step 5: Execute the below
+
+sudo a2ensite name.conf
+
+
+Step 6: Reload apache 2
+
+Sudo systemctl reload apache2
+
+Step 7: Ensure Directory Permissions:
+Ensure the /var/www/myapp directory has the correct permissions:
+sudo chown -R www-data:www-data /var/www/myapp
+sudo chmod -R 755 /var/www/myapp
+
+
+sudo systemctl restart apache2
